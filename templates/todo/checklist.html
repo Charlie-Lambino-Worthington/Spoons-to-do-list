@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load static %}
-{% load crispy_forms_tags %}
 {% block content %}
 
   <div class="containerfluid">
@@ -16,6 +15,17 @@
       </div>
     </div>
     <div class="row">
+      <div class="col-md-3 col-sm-12">
+        <div class="submit_form">
+          <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <center>
+              <input type="submit" class="btn btn-default" value="submit" />
+            </center>
+          </form>
+        </div>
+      </div>
       <div class="col-md-9 col-sm-12">
         {% for item in items %}
         <div class="card">
@@ -37,18 +47,6 @@
         </div>
         {% endfor %}
       </div>
-      <div class="col-md-3 col-sm-12">
-        <div class="submit_form">
-          <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <center>
-              <input type="submit" class="btn btn-default" value="submit" />
-            </center>
-          </form>
-        </div>
-      </div>
-    </div>
 
     {% if messages %}
     {% for message in messages %}
@@ -60,3 +58,4 @@
     <br>
     <br>
   </div>
+  {% endblock %}
