@@ -19,10 +19,9 @@ from django.urls import path, include
 from todo import views
 
 urlpatterns = [
-    path('', views.index, name="index"), # Home Page
-    path('del/<str:item_id>', views.remove, name="del"),
+    path('', views.index, name='index'),
+    path('accounts/', include('allauth.urls')),
+    path('del/<str:item_id>', views.remove, name='remove'),
     path('admin/', admin.site.urls),
-    path("checklist/", views.Checklist.as_view(), name="checklist"),
-    path("accounts/", include("accounts.urls")),
-    path("accounts/", include("django.contrib.auth.urls")),
+    path('checklist/', views.Checklist.as_view(), name='checklist'),
 ]

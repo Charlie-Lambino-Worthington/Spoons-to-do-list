@@ -1,6 +1,12 @@
+{% load static %}
+{% url 'home' as home_url %}
+{% url 'about' as about_url %}
+{% url 'account_login' as login_url %}
+{% url 'account_signup' as signup_url %}
+{% url 'account_logout' as logout_url %}
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  
  
 <head>
  
@@ -18,13 +24,29 @@
     margin: 0;
     box-sizing: border-box;
     }
+    .card {
+   
+     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5),
+                 0 6px 20px 0 rgba(0,0,0,0.39);
+     background: lightpink;
+     margin-bottom : 5%;
+     border-radius: 25px;
+     padding: 3%;
+     overflow: auto;
+     resize: both;
+     text-overflow: ellipsis;
+     text-align: center;
+     max-width: 90%;
+     margin-left: 5%;
+    }
+    .card:hover{
+      background: lightblue;
+    }
    
     .submit_form{
-      margin-top: 75px;
+   
       text-align: center;
       padding: 3%;
-      width: 90%;
-      margin-left: 5%;
       background: pink;
       border-radius: 25px;
       box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4),
@@ -56,59 +78,72 @@
         <ul class="nav navbar-nav">
           <li><a href="/">Home</a></li>
           <li><a href="/checklist">My To-Do List</a></li>
-          <li><a href="/accounts/login">My Account</a></li>
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page"
+              href="{% url 'account_logout' %}">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == signup_url %}active{% endif %}" aria-current="page"
+              href="{% url 'account_signup' %}">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page"
+              href="{% url 'account_login' %}">Login</a>
+          </li>
+          {% endif %}
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
 
- <div class="submit_form">
-  {% block title %}{% endblock %}
-  
   {% block content %}
-  <h2>Registration</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <button type="submit">Sign Up</button>
-  </form>
-  {% endblock %}
-  <br><br>
-  Already registered? Log in <a href="/accounts/login/">here!</a>
-</div>
-<br>
-<br>
-    <nav class="navbar navbar-default navbar-fixed-bottom ">
-     <div class="container-fluid">
+  <!-- Content Goes here -->
+  {% endblock content %}
+
+  
+  <nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
-        <a class="navbar-brand" href="/">Brand</a>
-    
+        <a class="navbar-brand" href="/index">© Brand</a>
+
         <ul class="nav navbar-nav footer">
           <li>
             <a href="https://www.facebook.com/" target="_blank" rel="noopener"
               aria-label="Visit our Facebook page (opens in a new tab)">
-              <i class="fab fa-facebook"></i></a>
+              <i class="fa-brands fa-facebook"></i></a>
           </li>
           <li>
             <a href="https://www.twitter.com/" target="_blank" rel="noopener"
               aria-label="Visit our Twitter page (opens in a new tab)">
-              <i class="fab fa-twitter-square"></i></a>
+              <i class="fa-brands fa-twitter-square"></i></a>
           </li>
           <li>
             <a href="https://www.youtube.com/" target="_blank" rel="noopener"
               aria-label="Visit our YouTube page (opens in a new tab)">
-              <i class="fab fa-youtube-square"></i></a>
+              <i class="fa-brands fa-youtube-square"></i></a>
           </li>
           <li>
             <a href="https://www.instagram.com/" target="_blank" rel="noopener"
               aria-label="Visit our Instagram page (opens in a new tab)">
-              <i class="fab fa-instagram"></i></a>
+              <i class="fa-brands fa-instagram"></i></a>
           </li>
         </ul>
-        
+        <br>
       </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
-  </body>
+    </div><!-- /.container-fluid -->
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="row">
+
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
 </html>
