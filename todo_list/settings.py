@@ -22,7 +22,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'your-default-secret-key')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['8000-charlielamb-spoonstodol-oap4n462r5w.ws-eu115.gitpod.io' ,
     '.herokuapp.com',]

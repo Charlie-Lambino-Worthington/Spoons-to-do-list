@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from todo import views
+from todo.views import refresh, new_day  # Import the refresh function
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -24,4 +25,6 @@ urlpatterns = [
     path('del/<str:item_id>', views.remove, name='remove'),
     path('admin/', admin.site.urls),
     path('checklist/', views.Checklist.as_view(), name='checklist'),
+    path('refresh/', refresh, name='refresh'),
+    path('newday/', new_day, name='new_day'),
 ]

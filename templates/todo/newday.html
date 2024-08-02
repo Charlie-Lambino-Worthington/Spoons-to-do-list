@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<br>
+<br>
+<br>
+  <div id="about" class="card">
+    <h3>Welcome to a new day!</h3>
+    <p>Yesterday's tasks have been deleted!
+        <br>
+        Have a great day!
+    </p>
+    <a href="{% url 'checklist' %}" class="btn btn-primary"><i class="fa-solid fa-arrows-rotate"> Back to My ToDo List Page</i></a>
+  </div>
+  {% endblock %}

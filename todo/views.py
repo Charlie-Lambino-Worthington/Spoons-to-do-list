@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 from .forms import TodoForm
 from .models import Todo, UserProfile
@@ -51,3 +54,12 @@ def remove(request, item_id):
     else:
         messages.error(request, "Item not found or you don't have permission to remove it.")
     return redirect('checklist')
+
+@login_required
+def refresh(request):
+    Todo.objects.filter(user=request.user).delete()
+    messages.info(request, "All tasks have been deleted for a new day!")
+    return HttpResponseRedirect(reverse('new_day'))
+
+def new_day(request):
+    return render(request, 'todo/newday.html')

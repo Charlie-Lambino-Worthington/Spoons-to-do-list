@@ -2,60 +2,71 @@
 {% load static %}
 {% block content %}
 
-  <div class="containerfluid">
-    <div class="row">
-      <div class="col-12">
-        <br>
-        <br>
-        <center class="row">
-          <h1><i>__TODO LIST__</i></h1>
-          <hr />
-          <h3>Remaining spoons: {{ remaining_spoons }}</h3>
-        </center>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-3 col-sm-12">
-        <div class="submit_form">
-          <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <center>
-              <input type="submit" class="btn btn-default" value="submit" />
-            </center>
-          </form>
-        </div>
-      </div>
-      <div class="col-md-9 col-sm-12">
-        {% for item in items %}
-        <div class="card">
-          <center><b>{{ item.title }}</b></center>
-          <hr />
-          {{ item.date }}
-          <hr />
-          {{ item.details }}
-          <hr />
-          <p>Spoons required: {{ item.spoons_required }}</p>
-          <br />
-          <br />
-          <form action="/del/{{ item.id }}" method="POST" style="padding-right: 4%; padding-bottom: 3%;">
-            {% csrf_token %}
-            <button value="remove" type="submit" class="btn btn-primary" style="float: right;">
-              <span class="glyphicon glyphicon-trash"></span> remove
-            </button>
-          </form>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <br>
+      <br>
+      <center class="row">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-info">
+          <strong>{{ message }}</strong>
         </div>
         {% endfor %}
+        {% endif %}
+        <br>
+
+        <h1><i>__TODO LIST__</i></h1>
+        <hr />
+        <h3>Remaining spoons: {{ remaining_spoons }}</h3>
+      </center>
+      <br>
+      <div class="row">
+        <div class="col-md-7">
+          <a href="{% url 'refresh' %}" class="btn btn-secondary"><i class="fa-solid fa-arrows-rotate"> New Day Refresh</i></a>
+          <br>
+          <br>
+          
+        </div>
+        <div class="col-md-5"> <br></div>
       </div>
 
-    {% if messages %}
-    {% for message in messages %}
-    <div class="alert alert-info">
-      <strong>{{ message }}</strong>
+      <div class="row">
+        <div class="col-md-3 col-sm-12">
+          <div class="submit_form">
+            <form method="POST">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <center>
+                <input type="submit" class="btn btn-default" value="submit" />
+              </center>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-9 col-sm-12">
+          {% for item in items %}
+          <div class="card">
+            <center><b>{{ item.title }}</b></center>
+            <hr />
+            {{ item.details }}
+            <hr />
+            <p>Spoons required: {{ item.spoons_required }}</p>
+            <br />
+            <br />
+            <form action="/del/{{ item.id }}" method="POST" style="padding-right: 4%; padding-bottom: 3%;">
+              {% csrf_token %}
+              <button style="float: right;" type="submit" class="btn btn-primary">
+                <span class="glyphicon glyphicon-trash"></span> remove
+              </button>
+            </form>
+          </div>
+          {% endfor %}
+        </div>
+        <br>
+      </div>
     </div>
-    {% endfor %}
-    {% endif %}
-    <br>
-    <br>
   </div>
-  {% endblock %}
+</div>
+
+{% endblock %}
