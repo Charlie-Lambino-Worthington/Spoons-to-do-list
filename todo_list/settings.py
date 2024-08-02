@@ -143,9 +143,6 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 
-ACCOUNT_FORMS = {
-    'signup': 'todo.forms.CustomSignupForm',  # Point to your custom form
-}
 
 # Additional settings
 # Add any additional settings here if needed

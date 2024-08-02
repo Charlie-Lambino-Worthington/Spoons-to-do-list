@@ -7,19 +7,3 @@ class TodoForm(forms.ModelForm):
         model = Todo
         fields = "__all__"
 
-class CustomSignupForm(SignupForm):
-    max_spoons = forms.IntegerField(
-        label='Maximum Spoons',
-        required=True,
-        initial=12,
-        help_text='Enter the maximum number of spoons you have.'
-    )
-
-    def save(self, request):
-        user = super(CustomSignupForm, self).save(request)
-        UserProfile.objects.create(
-            user_id=user.id,
-            username=user.username,
-            max_spoons=self.cleaned_data['max_spoons']
-        )
-        return user
